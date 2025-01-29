@@ -4,7 +4,7 @@ from agent import CustomAgent
 # Configuration for RAG Pipeline
 rag_pipeline_config = {
     "text_file": "data_for_rag.txt",
-    "vectorstore_file": "my_vectors",
+    "vectorstore_file": "vector_db",
     "model_name": "gpt-4o-mini",
     "chunk_size": 1150,
     "chunk_overlap": 150,
@@ -33,6 +33,7 @@ if 'custom_agent' not in st.session_state:
 example_texts = [
     "Classify the text: The Samsung Galaxy S25 Ultra will be the flagship handset for the company's Galaxy AI software. Following the launch at the upcoming Galaxy Unpacked event, the S25 family, including the powerful Galaxy S25 Ultra, will be the basis for the development and growth of Galaxy AI through 2025 and beyond.",
     "Classify the text: Ukrainian tennis player Elina Svitolina won her 100th career match at the Grand Slam level, defeating American Caroline Dowlgade in two sets in the second round of the Australian Open. Also, tennis player Diana Jastremska reached the third round of the Australian Open 2025.",
+    "Classify the text: CNN— A biopic about the complicated legacy of Michael Jackson was always going to be an ambitious undertaking. The planned release of the film, starring Jaafar Jackson as his late uncle, has been moved from April to October, reportedly due to complications with the script, according to a recent story from Puck. A representative for Lionsgate, the distributor of “Michael,” declined to comment when contacted by CNN. Here’s what we know about the project so far.",
     "When and where was Khrystyna born?",
     "What technical skills does Khrystyna have?",
     "What machine learning projects has Khrystyna done?",
