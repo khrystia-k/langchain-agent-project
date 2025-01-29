@@ -14,10 +14,6 @@ class CustomAgent:
         temperature=0,
         verbose=True,
     ):
-        """
-        Initializes the custom agent with RAGPipeline, TopicClassifier, and the LangChain agent.
-        """
-        # Instantiate RAGPipeline
         self.rag_pipeline = RAGPipeline(
             text_file=rag_pipeline_config["text_file"],
             vectorstore_file=rag_pipeline_config["vectorstore_file"],
@@ -27,7 +23,6 @@ class CustomAgent:
             temperature=rag_pipeline_config.get("temperature", 0),
         )
 
-        # Instantiate TopicClassifier
         self.topic_classifier = TopicClassifier(
             base_model=topic_classifier_config["base_model"],
             saved_model_path=topic_classifier_config["saved_model_path"],
@@ -35,7 +30,6 @@ class CustomAgent:
             threshold=topic_classifier_config.get("threshold", 0.6),
         )
 
-        # Define tools
         tools = [
             Tool(
                 name="TopicClassifier",
@@ -49,10 +43,8 @@ class CustomAgent:
             ),
         ]
 
-        # Initialize LLM
         llm = ChatOpenAI(temperature=temperature, model=llm_model)
 
-        # Initialize LangChain agent
         self.agent = initialize_agent(
             tools=tools,
             llm=llm,
