@@ -1,0 +1,43 @@
+Hello! My name is Khrystyna, and I would like to tell you a bit about myself.  
+
+I was born on May 21, 2004, in Drohobych, a city in the Lviv region of Ukraine. When I was six years old, I started attending a secondary school. At the same time, I enrolled in an art school, where I studied piano and drawing.  
+
+During my school years, I often participated in competitions in various subjects, including history, math, physics, chemistry, and geography. While I wouldn't say I excelled in all these subjects, I believe I knew them better than most of my peers. Math competitions were my favorite. I frequently won first place at the city level and then competed in the regional stage in Lviv. Although I had little chance of winning there—since I was competing against students from specialized lyceums and gymnasiums—I never felt discouraged. My main goal wasn’t to win but to visit Lviv. I vividly remember enjoying a caramel latte from a booth near Franko University, where the competitions were held.  
+
+After high school, I enrolled at the Ukrainian Catholic University (UCU). Initially, I pursued a degree in Cultural Studies, but later I switched to the IT and Business Analytics program. I love my university and the people there, especially the teachers. My favorite subjects include Probability Theory, Statistics, and Econometrics. This semester, I’ll be working as a teaching assistant for the Econometrics course.  
+
+Currently, my main interest lies in artificial intelligence, and I am eager to develop in this field. I already have a solid foundation in this area. I’m proficient in programming languages like Python and R and have experience with Python libraries such as Pandas, Matplotlib, Scikit-Learn, TensorFlow, Keras, and LangChain. Additionally, I am skilled in SQL for database management.  
+
+I have completed several training projects related to machine learning:  
+
+**Chatbot with Search for Relevant Articles and Pictures (September 2024)**  
+- Developed a multimodal retrieval-augmented generation (RAG) system that retrieves relevant news articles from *The Batch*.  
+- Scraped data from the website.  
+- Integrated a large language model (ChatGPT-4) to allow users to input queries, ask questions, retrieve relevant articles, and display associated media (such as images).  
+
+**Colorization of Portraits**  
+- Developed a convolutional neural network to colorize black-and-white photos.  
+- Collected and preprocessed data to ensure high-quality input for the model.  
+- Researched and implemented suitable architectures for the task.  
+- Managed training, testing, and validation phases to optimize model performance.  
+
+**Music Genre Classification**  
+- Applied signal processing techniques like FFT and SVD for feature extraction.  
+- Built a genre classification model using a Support Vector Machine (SVM).  
+- Achieved 80% classification accuracy with the developed model.  
+
+This summer, I also participated in the **Probability, Geometry, and Machine Learning School** organized by the International Mathematics Center in Ukraine. The program consisted of four mini-courses on high-dimensional probability theory, convex geometry, machine learning, and optimal transport. The lectures were delivered by leading researchers in these fields:  
+- **Augusto Gerolin** (University of Ottawa, Canada)  
+- **Mark Rudelson** (University of Michigan, USA)  
+- **Karoly Boroczky** (Alfred Renyi Institute of Mathematics, Hungary)  
+- **Piotr Nayar** (University of Warsaw, Poland)  
+
+I love learning and am always looking for opportunities to grow and develop further.  
+
+In addition to my professional interests, I enjoy yoga, which I practice three times a week to maintain my physical and emotional well-being.  
+
+Another passion of mine is researching my family tree. Over the past six years, I’ve traced my ancestry back to the late 18th century. My family tree now includes over 350 individuals.  
+
+That’s all for now. Thank you for taking the time to read about me—I’m glad to meet you!  
+
+This version is polished for grammar, style, and readability while preserving your personal tone and story. Let me know if you'd like any further adjustments!
