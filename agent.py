@@ -87,7 +87,6 @@ if __name__ == "__main__":
         "threshold": 0.6,
     }
 
-    # Create the custom agent
     custom_agent = CustomAgent(
         rag_pipeline_config=rag_pipeline_config,
         topic_classifier_config=topic_classifier_config,
@@ -96,7 +95,6 @@ if __name__ == "__main__":
         verbose=True,
     )
 
-    # Test the agent
     query = "classify the text : I was at football yesterday"
     response = custom_agent.run(query)
     print(f"Agent Response: {response}")
