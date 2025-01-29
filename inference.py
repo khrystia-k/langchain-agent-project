@@ -1,4 +1,5 @@
 import streamlit as st
+
 from agent import CustomAgent
 
 # Configuration for RAG Pipeline
@@ -20,7 +21,7 @@ topic_classifier_config = {
 }
 
 # Initialize the agent only once using Streamlit's session state
-if 'custom_agent' not in st.session_state:
+if "custom_agent" not in st.session_state:
     st.session_state.custom_agent = CustomAgent(
         rag_pipeline_config=rag_pipeline_config,
         topic_classifier_config=topic_classifier_config,
@@ -37,23 +38,22 @@ example_texts = [
     "When and where was Khrystyna born?",
     "What technical skills does Khrystyna have?",
     "What machine learning projects has Khrystyna done?",
-    "What are hobbies of Khrystyna?"
-   
+    "What are hobbies of Khrystyna?",
 ]
 
 # Streamlit UI
-st.set_page_config(page_title="Langchain Agent Project Demo", page_icon=":robot:", layout="centered")
+st.set_page_config(
+    page_title="Langchain Agent Project Demo", page_icon=":robot:", layout="centered"
+)
 
 
 with st.container():
-  
     st.title("Langchain Agent Project Demo 👾")
     st.markdown(
         """
         Welcome to the **My Custom Agent** interface! You can select one of the examples below or enter your own query to get a response.
         """
     )
-
 
     st.markdown("<hr>", unsafe_allow_html=True)
     st.markdown("### Choose an Example Query Below:")
@@ -62,31 +62,38 @@ with st.container():
             with st.expander(f"**Example {idx+1}:**", expanded=True):
                 st.write(f"**Text:**")
                 st.markdown(f"```{example}```")
-               
-                if st.button(f"Run Example {idx+1}", key=idx, help="Click to run the example", use_container_width=True):
-                    with st.spinner('Processing...'):
-        
+
+                if st.button(
+                    f"Run Example {idx+1}",
+                    key=idx,
+                    help="Click to run the example",
+                    use_container_width=True,
+                ):
+                    with st.spinner("Processing..."):
                         response = st.session_state.custom_agent.run(example)
                         st.success(f"**Agent Response:** {response}")
                 st.markdown("<hr>", unsafe_allow_html=True)
 
- 
     st.markdown("<br>", unsafe_allow_html=True)
 
-
     st.markdown("### **Or Enter Your Own Query:**")
-    query = st.text_input("Type your query here", key="custom_query", placeholder="Type your query...", help="Enter your query to classify or get a response")
+    query = st.text_input(
+        "Type your query here",
+        key="custom_query",
+        placeholder="Type your query...",
+        help="Enter your query to classify or get a response",
+    )
 
-   
     if st.button("Run Custom Query", key="run_custom"):
         if query:
-            with st.spinner('Processing your query...'):
-            
+            with st.spinner("Processing your query..."):
                 response = st.session_state.custom_agent.run(query)
                 st.success(f"**Agent Response:** {response}")
         else:
             st.warning("Please enter a query to get a response.")
 
-
     st.markdown("<br><br>", unsafe_allow_html=True)
-    st.markdown("Made  by Khrystyna Kuts | [My Github](https://github.com/khrystia-k)", unsafe_allow_html=True)
+    st.markdown(
+        "Made  by Khrystyna Kuts | [My Github](https://github.com/khrystia-k)",
+        unsafe_allow_html=True,
+    )

@@ -1,10 +1,19 @@
-from langchain.agents import Tool, initialize_agent, AgentType
+from langchain.agents import AgentType, Tool, initialize_agent
 from langchain_openai import ChatOpenAI
-from rag import RAGPipeline
+
 from classifier import TopicClassifier
+from rag import RAGPipeline
+
 
 class CustomAgent:
-    def __init__(self, rag_pipeline_config, topic_classifier_config, llm_model="gpt-4o-mini", temperature=0, verbose=True):
+    def __init__(
+        self,
+        rag_pipeline_config,
+        topic_classifier_config,
+        llm_model="gpt-4o-mini",
+        temperature=0,
+        verbose=True,
+    ):
         """
         Initializes the custom agent with RAGPipeline, TopicClassifier, and the LangChain agent.
         """
@@ -31,13 +40,13 @@ class CustomAgent:
             Tool(
                 name="TopicClassifier",
                 func=self.topic_classifier.classify,
-                description="Classifies the topic of the query. Never change the classifier's response. If you call this tool, always return only its response"
+                description="Classifies the topic of the query. Never change the classifier's response. If you call this tool, always return only its response",
             ),
             Tool(
                 name="RAG",
                 func=self.rag_pipeline.answer,
-                description="Answers questions about Khrystyna and her life."
-            )
+                description="Answers questions about Khrystyna and her life.",
+            ),
         ]
 
         # Initialize LLM
@@ -56,6 +65,7 @@ class CustomAgent:
         Runs the agent with the given query.
         """
         return self.agent.run(query)
+
 
 # Example usage
 if __name__ == "__main__":
