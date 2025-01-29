@@ -67,9 +67,9 @@ class CustomAgent:
         return self.agent.run(query)
 
 
-# Example usage
+
 if __name__ == "__main__":
-    # Configuration for RAGPipeline
+  
     rag_pipeline_config = {
         "text_file": "my.txt",
         "vectorstore_file": "my_vectors",
@@ -79,7 +79,6 @@ if __name__ == "__main__":
         "temperature": 0,
     }
 
-    # Configuration for TopicClassifier
     topic_classifier_config = {
         "base_model": "roberta-base",
         "saved_model_path": "./saved_model",
