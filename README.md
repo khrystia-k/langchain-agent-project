@@ -1,6 +1,6 @@
 # LangChain Agent Project 🚀
 
-## Overview
+## Overview  📌
 This project is a LangChain-based agent with two main tools:
 1. **Text Classifier**: A fine-tuned RoBERTa model that classifies texts into five categories:
    - Politics
@@ -10,13 +10,19 @@ This project is a LangChain-based agent with two main tools:
    - Business
 2. **Retrieval-Augmented Generation (RAG) System**: Answers questions about Khrystyna using information from `data_for_rag.txt`.
 
-## Installation
+## Installation ⚙️
 To set up the project, install the required dependencies:
 ```bash
 pip install -r requirements.txt
 ```
 
-## Project Structure
+## Usage 🚀
+Run the LangChain agent:
+```bash
+streamlit run inference.py
+```
+
+## Project Structure 🗂
 - `saved_model/` - Directory containing saved fine-tuned RoBERTa model for classification.
 - `texts_examples/` - Example texts for testing the classifier.
 - `vector_db/` - Directory storing the vector database for RAG retrieval.
@@ -28,30 +34,25 @@ pip install -r requirements.txt
 - `rag.py` - Implements the RAG system.
 - `inference.py` - Main script for running inference of the agent.
 
-## Usage
-Run the LangChain agent:
-```bash
-streamlit run inference.py
-```
 
 
-## Project Stages
-### 1. **Data Preparation**
+## Project Stages 🏗️
+### 1. **Data Preparation**📝
    - Collected data for classification. Dataset source: [Kaggle - Text Classification Documentation](https://www.kaggle.com/datasets/tanishqdublish/text-classification-documentation)
    - Conducted EDA using `EDA.ipynb` to understand data distributions and patterns. Checked for NaNs and duplicated values.
    - Created `data_for_rag.txt` as a knowledge base for the RAG system.
 
-### 2. **Model Fine-Tuning**
+### 2. **Model Fine-Tuning**🎯
    - Used roberta-base for fine-tuning on classification tasks. (`fine_tuning.ipynb`)
    - Сhose evaluation metric: F1 score, as the task was classification.
    - Saved the fine-tuned model in `saved_model/`.
 
-### 4. **Building the LangChain Agent**
+### 4. **Building the LangChain Agent**🤖
   - Built RAG pipeline in `rag.py`
   - Implemented class for text classifier in `classifier.py`
   - Implemented an agent in agent.py that integrates the classifier and RAG as tools
 
-### 5. **Inference and Testing**
+### 5. **Inference and Testing**🖥️
    - Verified performance on sample inputs.
    - UI implemented with Streamlit for interactive use in `inference.py`
 
