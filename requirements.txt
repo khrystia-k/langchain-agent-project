@@ -1,0 +1,16 @@
+torch
+transformers
+datasets
+peft
+scikit-learn
+matplotlib
+pandas
+numpy
+streamlit
+faiss-cpu
+langchain
+langchain-core
+langchain-openai
+openai
+python-dotenv
+kagglehub
