@@ -44,6 +44,7 @@ streamlit run inference.py
 
 ### 2. **Model Fine-Tuning**🎯
    - Used roberta-base for fine-tuning on classification tasks. (`fine_tuning.ipynb`)
+   - Used LoRA as fine-tuning optimization technique.
    - Сhose evaluation metric: F1 score, as the task was classification.
    - Saved the fine-tuned model in `saved_model/`.
 
