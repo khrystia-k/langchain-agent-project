@@ -7,9 +7,16 @@ class TopicClassifier:
     def __init__(
         self,
         base_model="roberta-base",
-        saved_model_path="./saved_model",
+        saved_model_path="./saved_model_eng",
         num_labels=5,
         threshold=0.6,
+        class_names=[
+            "Politics",
+            "Sport",
+            "Technology",
+            "Entertainment",
+            "Business",
+        ],
     ):
         self.tokenizer = RobertaTokenizer.from_pretrained(base_model)
         base_model_instance = AutoModelForSequenceClassification.from_pretrained(
@@ -17,13 +24,7 @@ class TopicClassifier:
         )
         self.model = PeftModel.from_pretrained(base_model_instance, saved_model_path)
         self.model.eval()  # set model to evaluation mode
-        self.class_names = [
-            "Politics",
-            "Sport",
-            "Technology",
-            "Entertainment",
-            "Business",
-        ]
+        self.class_names = class_names
         self.id2label = {i: label for i, label in enumerate(self.class_names)}
         self.threshold = threshold
 

@@ -1,4 +1,5 @@
 import streamlit as st
+import os
 
 from agent import CustomAgent
 
@@ -12,88 +13,125 @@ rag_pipeline_config = {
     "temperature": 0,
 }
 
-# Configuration for Topic Classifier
-topic_classifier_config = {
+# Configuration for Topic Classifier in English
+topic_classifier_config_eng = {
     "base_model": "roberta-base",
-    "saved_model_path": "./saved_model",
+    "saved_model_path": "./saved_model_eng",
     "num_labels": 5,
     "threshold": 0.6,
 }
 
-# Initialize the agent only once using Streamlit's session state
+# Configuration for Topic Classifier in Ukrainian
+topic_classifier_config_ukr = {
+    "base_model": "youscan/ukr-roberta-base",
+    "saved_model_path": "./saved_model_ukr",
+    "num_labels": 5,
+    "threshold": 0.6,
+    "class_names": ["Політика", "Спорт", "Технології", "Розваги", "Бізнес"],
+}
+
+# Initialize the agent only once
 if "custom_agent" not in st.session_state:
     st.session_state.custom_agent = CustomAgent(
         rag_pipeline_config=rag_pipeline_config,
-        topic_classifier_config=topic_classifier_config,
+        topic_classifier_config_eng=topic_classifier_config_eng,
+        topic_classifier_config_ukr=topic_classifier_config_ukr,
         llm_model="gpt-4o-mini",
         temperature=0,
         verbose=True,
     )
 
-# Pre-saved example texts
-example_texts = [
-    "Classify the text: The Samsung Galaxy S25 Ultra will be the flagship handset for the company's Galaxy AI software. Following the launch at the upcoming Galaxy Unpacked event, the S25 family, including the powerful Galaxy S25 Ultra, will be the basis for the development and growth of Galaxy AI through 2025 and beyond.",
-    "Classify the text: Ukrainian tennis player Elina Svitolina won her 100th career match at the Grand Slam level, defeating American Caroline Dowlgade in two sets in the second round of the Australian Open. Also, tennis player Diana Jastremska reached the third round of the Australian Open 2025.",
-    "Classify the text: CNN— A biopic about the complicated legacy of Michael Jackson was always going to be an ambitious undertaking. The planned release of the film, starring Jaafar Jackson as his late uncle, has been moved from April to October, reportedly due to complications with the script, according to a recent story from Puck. A representative for Lionsgate, the distributor of “Michael,” declined to comment when contacted by CNN. Here’s what we know about the project so far.",
-    "When and where was Khrystyna born?",
-    "What technical skills does Khrystyna have?",
-    "What machine learning projects has Khrystyna done?",
-    "What are hobbies of Khrystyna?",
-]
+
+# Function to read text examples from directory and categorize them
+def load_text_examples(directory):
+    examples = {"English": {}, "Ukrainian": {}, "RAG": {}}
+    for filename in os.listdir(directory):
+        if filename.endswith(".txt"):
+            category = filename.replace(".txt", "")
+            with open(os.path.join(directory, filename), "r", encoding="utf-8") as file:
+                text = file.read()
+                if any(
+                    word in filename.lower()
+                    for word in [
+                        "business",
+                        "sport",
+                        "politics",
+                        "technology",
+                        "entertainment",
+                    ]
+                ):
+                    examples["English"][category] = {
+                        "name": f"Example for {category}",
+                        "text": text,
+                    }
+                elif any(
+                    word in filename.lower()
+                    for word in ["бізнес", "спорт", "політика", "технології", "розваги"]
+                ):
+                    examples["Ukrainian"][category] = {
+                        "name": f"Example for {category}",
+                        "text": text,
+                    }
+                else:
+                    examples["RAG"][category] = {
+                        "name": f"Example for {category}",
+                        "text": text,
+                    }
+    return examples
+
+
+# Load examples from 'texts_examples' directory
+example_texts = load_text_examples("texts_examples")
 
 # Streamlit UI
 st.set_page_config(
     page_title="Langchain Agent Project Demo", page_icon=":robot:", layout="centered"
 )
 
+st.markdown(
+    """
+    <style>
+    .stApp {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .stTextArea > div > textarea {
+        width: 100% !important;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True,
+)
 
-with st.container():
-    st.title("Langchain Agent Project Demo 👾")
-    st.markdown(
-        """
-        Welcome to the **My Custom Agent** interface! You can select one of the examples below or enter your own query to get a response.
-        """
-    )
+st.title("Langchain Agent Project Demo 👾")
+st.markdown("Welcome! Select or edit an example query, or enter your own.")
 
-    st.markdown("<hr>", unsafe_allow_html=True)
-    st.markdown("### Choose an Example Query Below:")
-    with st.container():
-        for idx, example in enumerate(example_texts):
-            with st.expander(f"**Example {idx+1}:**", expanded=True):
-                st.write(f"**Text:**")
-                st.markdown(f"```{example}```")
+# Display grouped examples
+for group, categories in example_texts.items():
+    st.markdown(f"# {group}")
+    for category, example in categories.items():
+        st.markdown(f"### {example['name']}")
+        st.text_area("Text: ", example["text"], key=f"{group}_{category}", height=250)
+        if st.button("**Run** ", key=f"run_{group}_{category}"):
+            with st.spinner("Processing..."):
+                response = st.session_state.custom_agent.run(example["text"])
+                st.success(f"**Agent Response:** {response['output']}")
+    st.markdown("---")
 
-                if st.button(
-                    f"Run Example {idx+1}",
-                    key=idx,
-                    help="Click to run the example",
-                    use_container_width=True,
-                ):
-                    with st.spinner("Processing..."):
-                        response = st.session_state.custom_agent.run(example)
-                        st.success(f"**Agent Response:** {response}")
-                st.markdown("<hr>", unsafe_allow_html=True)
+# Custom Query Input
+st.markdown("## Enter Your Own Query")
+query = st.text_input("Type your query here", placeholder="Type your query...")
+if st.button("Run Custom Query"):
+    if query:
+        with st.spinner("Processing your query..."):
+            response = st.session_state.custom_agent.run(query)
+            st.success(f"**Agent Response:** {response['output']}")
+    else:
+        st.warning("Please enter a query to get a response.")
 
-    st.markdown("<br>", unsafe_allow_html=True)
-
-    st.markdown("### **Or Enter Your Own Query:**")
-    query = st.text_input(
-        "Type your query here",
-        key="custom_query",
-        placeholder="Type your query...",
-        help="Enter your query to classify or get a response",
-    )
-
-    if st.button("Run Custom Query", key="run_custom"):
-        if query:
-            with st.spinner("Processing your query..."):
-                response = st.session_state.custom_agent.run(query)
-                st.success(f"**Agent Response:** {response}")
-        else:
-            st.warning("Please enter a query to get a response.")
-
-    st.markdown("<br><br>", unsafe_allow_html=True)
-    st.markdown(
-        "Made  by Khrystyna Kuts | [My Github](https://github.com/khrystia-k)",
-        unsafe_allow_html=True,
-    )
+st.markdown("---")
+st.markdown(
+    "Made by Khrystyna Kuts | [My Github](https://github.com/khrystia-k)",
+    unsafe_allow_html=True,
+)
