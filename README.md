@@ -8,7 +8,7 @@ This project is a LangChain-based agent with two main tools:
    - Technology
    - Entertainment
    - Business
-2. **Ukrainian English Text Classifier**:  A fine-tuned RoBERTa base model for ukrainian language that classifies texts into five categories:
+2. **Ukrainian Text Classifier**:  A fine-tuned RoBERTa base model for ukrainian language that classifies texts into five categories:
    -  Політика
    -  Спорт
    -  Технології
