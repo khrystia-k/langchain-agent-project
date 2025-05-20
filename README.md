@@ -1,7 +1,7 @@
 # LangChain Agent Project 🚀
 
 ## Overview  📌
-This project is a LangChain-based agent with two main tools:
+This project is a LangChain-based agent with three main tools:
 1. **English Text Classifier**: A fine-tuned RoBERTa base model that classifies texts into five categories:
    - Politics
    - Sport
